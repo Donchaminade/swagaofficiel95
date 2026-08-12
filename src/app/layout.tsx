@@ -18,11 +18,8 @@ const archivo = Archivo({
   weight: ["400", "500", "600", "700"],
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL("https://swagaofficiel95.vercel.app"),
   title: "SwAgA-Officiel95 | Danse · Contenu · Pubs",
   description:
     "Portfolio de SwAgA-Officiel95 — danseur & créateur de contenu à Lomé. Collabs artistes, pubs marques, contenus TikTok.",
@@ -44,18 +41,18 @@ export const metadata: Metadata = {
     title: "SwAgA-Officiel95 | Danse · Contenu · Pubs",
     description:
       "Danseur & créateur de contenu à Lomé — collabs artistes, pubs marques, énergie street TikTok.",
-    locale: "fr_TG",
-    type: "website",
+    url: "https://swagaofficiel95.vercel.app",
     siteName: "SwAgA-Officiel95",
-    url: "/",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "SwAgA-Officiel95 — Danse · Contenu · Pubs",
+        alt: "SwAgA-Officiel95",
       },
     ],
+    locale: "fr_TG",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
