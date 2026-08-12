@@ -349,11 +349,6 @@ body {
     will-change: auto;
   }
 
-  .hero-kenburns {
-    animation: none !important;
-    will-change: auto;
-  }
-
   .animate-nav-bounce,
   .animate-nav-pulse,
   .animate-nav-spin,
@@ -362,9 +357,9 @@ body {
   }
 
   /* Ne pas écraser marquee / hero slideshow (doivent rester visibles) */
-  *:not(.marquee-track):not(.tiktok-marquee-run):not(.hero-slide):not(.hero-slide-dot):not(.hero-kenburns),
-  *:not(.marquee-track):not(.tiktok-marquee-run):not(.hero-slide):not(.hero-slide-dot):not(.hero-kenburns)::before,
-  *:not(.marquee-track):not(.tiktok-marquee-run):not(.hero-slide):not(.hero-slide-dot):not(.hero-kenburns)::after {
+  *:not(.marquee-track):not(.tiktok-marquee-run):not(.hero-slide):not(.hero-slide-dot),
+  *:not(.marquee-track):not(.tiktok-marquee-run):not(.hero-slide):not(.hero-slide-dot)::before,
+  *:not(.marquee-track):not(.tiktok-marquee-run):not(.hero-slide):not(.hero-slide-dot)::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -372,7 +367,7 @@ body {
 
   .hero-slide,
   .hero-slide.is-active {
-    transition: opacity 1200ms ease-in-out, transform 1200ms ease-in-out !important;
+    transition: opacity 1200ms ease-in-out !important;
     transition-duration: 1200ms !important;
   }
 }

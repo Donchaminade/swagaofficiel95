@@ -46,7 +46,7 @@ function ArtistPortrait({
       src={src}
       alt={name}
       fill
-      className="object-cover transition duration-500 group-hover:scale-[1.06]"
+      className="object-contain object-center"
       sizes="(max-width: 640px) 40vw, (max-width: 1024px) 20vw, 180px"
     />
   );
