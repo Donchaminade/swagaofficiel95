@@ -8,7 +8,7 @@ type ServiceFramesProps = {
   alt: string;
 };
 
-/** Diaporama Ken Burns — frames PNG présentées comme vue animée (pas de GIF). */
+/** Diaporama frames PNG — crossfade, ratio préservé (pas de GIF / ken-burns). */
 export function ServiceFrames({ frames, alt }: ServiceFramesProps) {
   const [active, setActive] = useState(0);
 
@@ -21,7 +21,7 @@ export function ServiceFrames({ frames, alt }: ServiceFramesProps) {
   }, [frames.length]);
 
   return (
-    <div className="relative aspect-[3/4] overflow-hidden border border-hairline bg-asphalt">
+    <div className="relative aspect-[3/4] overflow-hidden border border-hairline bg-palette-ink">
       {frames.map((src, i) => (
         <div
           key={src}
@@ -32,8 +32,7 @@ export function ServiceFrames({ frames, alt }: ServiceFramesProps) {
             src={src}
             alt={i === active ? alt : ""}
             fill
-            className={`object-cover ${i === active ? "hero-kenburns" : ""}`}
-            style={i === active ? { animationDuration: "4.2s" } : undefined}
+            className="object-contain object-center"
             sizes="(max-width: 1024px) 100vw, 40vw"
             priority={i === 0}
           />

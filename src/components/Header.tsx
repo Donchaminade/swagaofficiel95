@@ -35,7 +35,7 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="pointer-events-none fixed inset-x-3 top-3 z-50 md:inset-x-4 md:top-4">
+    <header className="pointer-events-none fixed left-1/2 top-3 z-50 w-[min(100%-2rem,72rem)] -translate-x-1/2 md:top-4 md:w-[min(100%-3rem,72rem)] lg:w-[min(100%-4rem,72rem)]">
       <div
         className={`pointer-events-auto overflow-hidden rounded-2xl border border-hairline backdrop-blur-md transition-[background-color,box-shadow] duration-300 ${
           scrolled || open
@@ -43,7 +43,7 @@ export function Header() {
             : "bg-ink/60 shadow-[0_8px_28px_rgba(0,0,0,0.18)]"
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 md:px-6 md:py-3">
+        <div className="flex items-center justify-between px-4 py-2.5 md:px-6 md:py-3">
           <Link
             href="/"
             className="font-display text-xl tracking-tight text-bone md:text-2xl"
@@ -53,7 +53,7 @@ export function Header() {
           </Link>
 
           <nav
-            className="hidden items-center gap-5 lg:gap-7 md:flex"
+            className="hidden items-center gap-6 md:flex lg:gap-8"
             aria-label="Navigation principale"
           >
             {navLinks.map((l) => {

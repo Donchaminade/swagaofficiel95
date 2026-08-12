@@ -16,12 +16,12 @@ export function About({ mode = "teaser" }: AboutProps) {
     <section id="about" className="bg-ink px-5 py-24 md:px-8 md:py-32">
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16">
         <Reveal variant="card-zoom" delay={STAGGER.col[0]}>
-          <div className="relative aspect-[4/5] overflow-hidden border border-hairline">
+          <div className="relative aspect-[4/5] overflow-hidden border border-hairline bg-palette-ink">
             <Image
               src="/images/swaga-real.png"
               alt={`Portrait de ${site.name}`}
               fill
-              className="object-cover object-[center_15%]"
+              className="object-contain object-center"
               sizes="(max-width: 1024px) 100vw, 45vw"
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-palette-ink/95 via-palette-ink/55 to-transparent px-5 pb-5 pt-28">

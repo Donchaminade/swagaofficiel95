@@ -95,32 +95,32 @@ export const site = {
       ],
     },
   ],
-  /** Diaporama hero : photos SwAgA distinctes (rotation ~4.5s). */
+  /** Diaporama hero : photos SwAgA distinctes (rotation ~4s). Crops très différents pour un morphing évident. */
   heroSlides: [
     {
       src: "/images/swaga-real.png",
       alt: "SwAgA — portrait street réel",
-      objectPosition: "center 18%",
+      objectPosition: "center 12%",
     },
     {
       src: "/images/swaga-slide-01.png",
       alt: "SwAgA — street night",
-      objectPosition: "center 20%",
+      objectPosition: "left center",
     },
     {
       src: "/images/swaga-slide-02.png",
       alt: "SwAgA — close-up",
-      objectPosition: "center 22%",
+      objectPosition: "center top",
     },
     {
       src: "/images/swaga-slide-03.png",
       alt: "SwAgA — énergie danse",
-      objectPosition: "center 15%",
+      objectPosition: "right 35%",
     },
     {
       src: "/images/swaga-slide-04.png",
       alt: "SwAgA — profil street",
-      objectPosition: "center 18%",
+      objectPosition: "70% 40%",
     },
   ],
   /** Heroes full-bleed des pages internes. */

@@ -37,20 +37,17 @@ export function PageHero({
       className="relative min-h-[52svh] overflow-hidden bg-palette-ink md:min-h-[58svh]"
       data-procope="hero-load"
     >
-      <div className="absolute inset-0" aria-hidden>
+      <div className="absolute inset-0 bg-palette-ink" aria-hidden>
         {image.src?.trim() ? (
           <Image
             src={image.src}
             alt={image.alt}
             fill
             priority
-            className="object-cover brightness-[0.55] contrast-110 saturate-[0.9]"
-            style={{ objectPosition: image.objectPosition ?? "center 30%" }}
+            className="object-contain object-center brightness-[0.55] contrast-110 saturate-[0.9]"
             sizes="100vw"
           />
-        ) : (
-          <div className="absolute inset-0 bg-palette-ink" />
-        )}
+        ) : null}
         <div className="absolute inset-0 bg-gradient-to-r from-palette-ink via-palette-ink/65 to-palette-ink/25" />
         <div className="absolute inset-0 bg-gradient-to-t from-palette-ink via-transparent to-palette-ink/40" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(30,111,255,0.16),transparent_50%)]" />
