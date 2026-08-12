@@ -160,9 +160,10 @@ export function Contact() {
             </label>
             <button
               type="submit"
-              className="mt-8 w-full border border-bic bg-bic py-4 text-sm font-semibold uppercase tracking-[0.2em] text-palette-bone transition hover:bg-transparent hover:text-bic"
+              className="mt-8 flex w-full items-center justify-center gap-2 border border-bic bg-bic py-4 text-sm font-semibold uppercase tracking-[0.2em] text-palette-bone transition hover:bg-transparent hover:text-bic"
             >
-              Envoyer
+              <IconWhatsApp className="h-4 w-4 shrink-0" />
+              Envoyer sur WhatsApp
             </button>
             {sentHint && (
               <p className="mt-4 text-sm text-concrete">

@@ -95,32 +95,32 @@ export const site = {
       ],
     },
   ],
-  /** Diaporama hero : photos SwAgA distinctes (rotation ~4s). Crops très différents pour un morphing évident. */
+  /** Diaporama hero : 5 photos paysage 16:9 (rotation ~4s, object-cover). */
   heroSlides: [
     {
-      src: "/images/swaga-real.png",
-      alt: "SwAgA — portrait street réel",
-      objectPosition: "center 12%",
+      src: "/images/swaga-hero-land-01.png",
+      alt: "SwAgA — scène street paysage",
+      objectPosition: "center",
     },
     {
-      src: "/images/swaga-slide-01.png",
-      alt: "SwAgA — street night",
-      objectPosition: "left center",
+      src: "/images/swaga-hero-land-02.png",
+      alt: "SwAgA — énergie danse paysage",
+      objectPosition: "center",
     },
     {
-      src: "/images/swaga-slide-02.png",
-      alt: "SwAgA — close-up",
-      objectPosition: "center top",
+      src: "/images/swaga-hero-land-03.png",
+      alt: "SwAgA — portrait street paysage",
+      objectPosition: "center",
     },
     {
-      src: "/images/swaga-slide-03.png",
-      alt: "SwAgA — énergie danse",
-      objectPosition: "right 35%",
+      src: "/images/swaga-hero-land-04.png",
+      alt: "SwAgA — night street paysage",
+      objectPosition: "center",
     },
     {
-      src: "/images/swaga-slide-04.png",
-      alt: "SwAgA — profil street",
-      objectPosition: "70% 40%",
+      src: "/images/swaga-hero-land-05.png",
+      alt: "SwAgA — vibe urbaine paysage",
+      objectPosition: "center",
     },
   ],
   /** Heroes full-bleed des pages internes. */
@@ -147,7 +147,8 @@ export const site = {
       objectPosition: "center 40%",
       eyebrow: "Collabs",
       title: "Sur scène avec",
-      subtitle: "Artistes & moments qui claquent.",
+      subtitle:
+        "Live, clips et freestyle — les artistes avec qui SwAgA fait monter la salle.",
     },
     social: {
       src: "/images/illustrations/reseaux-connect.png",
@@ -520,7 +521,32 @@ export const site = {
    * Collabs « Sur scène avec » — portraits dans /public/images/artists/
    * Orthographe : Santrinos (pas Santrisnos) ; Anadaboy = Anodaboy.
    * Paths must match files on disk (never "").
+   * Accueil = `collabsTeaser` (3 noms les plus connus) ; `/collabs` = liste full.
    */
+  collabsCopy: {
+    teaser:
+      "De Lomé, l’énergie street part en live et en clips avec des artistes qui font bouger la scène. Voici un aperçu des collabs qui claquent — la liste reste ouverte.",
+    full:
+      "Chorés, freestyle, plateaux et tournages : SwAgA collabore avec des artistes qui portent le même vibe street depuis Lomé et au-delà. Live ou clip, chaque projet vise une présence caméra nette et une salle qui monte. La liste grandit — artistes, managers et labels, on parle.",
+  },
+  /** Teaser accueil — max 3 (Axel Merryl, Santrinos, Sethlo). */
+  collabsTeaser: [
+    {
+      name: "Axel Merryl",
+      role: "ARTISTE",
+      image: "/images/artists/axel-merryl.jpg",
+    },
+    {
+      name: "Santrinos",
+      role: "ARTISTE",
+      image: "/images/artists/santrinos.jpg",
+    },
+    {
+      name: "Sethlo",
+      role: "ARTISTE",
+      image: "/images/artists/sethlo.jpg",
+    },
+  ],
   collabs: [
     {
       name: "Axel Merryl",

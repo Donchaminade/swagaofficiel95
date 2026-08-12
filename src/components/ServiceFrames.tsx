@@ -21,7 +21,7 @@ export function ServiceFrames({ frames, alt }: ServiceFramesProps) {
   }, [frames.length]);
 
   return (
-    <div className="relative aspect-[3/4] overflow-hidden border border-hairline bg-palette-ink">
+    <div className="relative aspect-[3/4] overflow-hidden border border-hairline bg-asphalt">
       {frames.map((src, i) => (
         <div
           key={src}
@@ -32,7 +32,7 @@ export function ServiceFrames({ frames, alt }: ServiceFramesProps) {
             src={src}
             alt={i === active ? alt : ""}
             fill
-            className="object-contain object-center"
+            className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 40vw"
             priority={i === 0}
           />

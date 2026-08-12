@@ -41,9 +41,9 @@ export function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const scrollOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
 
-  const badgeLeft = site.passBadges.find((b) => b.position === "top-left");
-  const badgeRight = site.passBadges.find((b) => b.position === "top-right");
-  const badgeTitle = site.passBadges.find((b) => b.position === "title");
+  /** Grappe près du « 95 » — délais vent décalés pour un effet naturel */
+  const passCluster = site.passBadges;
+  const passSwingDelays = ["0s", "0.15s", "0.3s"] as const;
 
   return (
     <section
@@ -54,7 +54,7 @@ export function Hero() {
       aria-roledescription="carousel"
       aria-label="Photos SwAgA"
     >
-      {/* Background diaporama — object-contain (ratio préservé, fond ink) */}
+      {/* Background diaporama — object-cover paysage 16:9, fond ink */}
       <motion.div
         className="absolute inset-0 bg-palette-ink"
         initial={false}
@@ -80,7 +80,8 @@ export function Hero() {
                   alt={frame.alt}
                   fill
                   priority={i < 2}
-                  className="object-contain object-center brightness-[0.92] contrast-[1.04] saturate-[0.98]"
+                  className="object-cover object-center brightness-[0.92] contrast-[1.04] saturate-[0.98]"
+                  style={{ objectPosition: frame.objectPosition ?? "center" }}
                   sizes="100vw"
                 />
               </div>
@@ -94,32 +95,10 @@ export function Hero() {
         <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_75%_35%,rgba(30,111,255,0.06),transparent_50%)]" />
       </motion.div>
 
-      {/* Badge 1 — haut gauche */}
-      {badgeLeft && (
-        <div className="pointer-events-none absolute left-3 top-20 z-30 sm:left-5 md:left-8 md:top-24">
-          <PassBadge
-            eyebrow={badgeLeft.eyebrow}
-            lines={badgeLeft.lines}
-            swingDelay="0s"
-          />
-        </div>
-      )}
-
-      {/* Badge 2 — haut droite */}
-      {badgeRight && (
-        <div className="pointer-events-none absolute right-3 top-20 z-30 sm:right-5 md:right-8 md:top-28">
-          <PassBadge
-            eyebrow={badgeRight.eyebrow}
-            lines={badgeRight.lines}
-            swingDelay="0.7s"
-          />
-        </div>
-      )}
-
       <div className="relative z-20 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-20 pt-32 md:px-8 md:pb-28">
         <motion.p
           key={softMotion ? "tagline-in" : "tagline-ssr"}
-          className="mb-4 max-w-md text-sm uppercase tracking-[0.28em] text-palette-concrete"
+          className="mb-4 w-fit max-w-md rounded-md border border-palette-bone/15 bg-palette-ink/75 px-3.5 py-2 text-sm uppercase tracking-[0.28em] text-palette-bone backdrop-blur-md sm:px-4"
           data-procope="hero-load"
           initial={softMotion ? { opacity: 0, y: -28 } : false}
           animate={{ opacity: 1, y: 0 }}
@@ -147,29 +126,46 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.95, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className="inline-flex flex-wrap items-start gap-x-2 gap-y-3 sm:gap-x-3">
-            <span className="relative inline-block pb-4 sm:pb-5">
-              {site.shortName}
-              <span className="text-bic">95</span>
-              <span
-                aria-hidden
-                className="pointer-events-none absolute right-0 top-[0.88em] font-sans text-[10px] font-medium uppercase leading-none tracking-[0.28em] text-palette-concrete sm:text-xs"
-              >
-                officiel
-              </span>
+          <span className="relative inline-block pb-4 sm:pb-5">
+            {site.shortName}
+            <span className="text-bic">95</span>
+            <span
+              aria-hidden
+              className="pointer-events-none absolute right-0 top-[0.82em] inline-flex items-center rounded-full bg-bic px-2 py-0.5 font-sans text-[10px] font-semibold uppercase leading-none tracking-[0.22em] text-palette-bone sm:px-2.5 sm:py-1 sm:text-xs"
+            >
+              officiel
             </span>
-            {badgeTitle && (
-              <span className="mt-2 inline-block align-top sm:mt-3 md:mt-4">
-                <PassBadge
-                  eyebrow={badgeTitle.eyebrow}
-                  lines={badgeTitle.lines}
-                  swingDelay="1.2s"
-                  compact
-                />
-              </span>
-            )}
           </span>
         </motion.h1>
+
+        {/* Rangée égale sous le titre — même hauteur, largeurs harmonisées */}
+        {passCluster.length > 0 && (
+          <motion.div
+            key={softMotion ? "passes-in" : "passes-ssr"}
+            className="pass-badge-row mt-3 w-full max-w-md sm:mt-4 sm:max-w-lg md:max-w-xl"
+            aria-label="Passes réseaux"
+            data-procope="hero-load"
+            initial={softMotion ? { opacity: 0, y: 12 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="flex items-stretch gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory sm:grid sm:grid-cols-3 sm:gap-3 sm:overflow-visible sm:pb-0 [&::-webkit-scrollbar]:hidden">
+              {passCluster.map((badge, i) => (
+                <div
+                  key={badge.id}
+                  className="w-[min(42vw,9.5rem)] shrink-0 snap-start sm:w-auto sm:min-w-0"
+                >
+                  <PassBadge
+                    eyebrow={badge.eyebrow}
+                    lines={badge.lines}
+                    swingDelay={passSwingDelays[i] ?? "0s"}
+                    className="h-full"
+                  />
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <motion.a

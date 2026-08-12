@@ -13,10 +13,9 @@ type PassLine = {
 type PassBadgeProps = {
   eyebrow: string;
   lines: readonly PassLine[];
-  /** Décalage de phase pour désynchroniser les balancements. */
+  /** Décalage de phase (rafales décalées, ex. 0 / 0.15 / 0.3s). */
   swingDelay?: string;
   className?: string;
-  compact?: boolean;
 };
 
 function IconTikTok({ className }: { className?: string }) {
@@ -103,7 +102,7 @@ function PlatformIcon({
       return (
         <span className="inline-flex shrink-0 items-center gap-0.5" aria-hidden>
           <IconTikTok className={className} />
-          <IconHeart className="h-3 w-3 text-bic" />
+          <IconHeart className="h-2.5 w-2.5 text-bic sm:h-3 sm:w-3" />
         </span>
       );
     case "instagram":
@@ -115,7 +114,7 @@ function PlatformIcon({
 
 /**
  * Badge « pass / laminé » accroché.
- * Swing : classe CSS après mount (hydration-safe) ;
+ * Vent : classe CSS après mount (hydration-safe) ;
  * prefers-reduced-motion géré uniquement en CSS.
  */
 export function PassBadge({
@@ -123,15 +122,13 @@ export function PassBadge({
   lines,
   swingDelay = "0s",
   className = "",
-  compact = false,
 }: PassBadgeProps) {
   const [live, setLive] = useState(false);
+  const multi = lines.length > 1;
 
   useEffect(() => {
     setLive(true);
   }, []);
-
-  const iconSize = compact ? "h-4 w-4" : "h-5 w-5";
 
   const swingStyle = live
     ? ({
@@ -141,80 +138,91 @@ export function PassBadge({
 
   return (
     <div
-      className={`pass-badge-hang ${live ? "pass-badge-swing" : ""} ${className}`}
+      className={`pass-badge-hang flex h-full w-full flex-col items-center ${live ? "pass-badge-swing" : ""} ${className}`}
       style={swingStyle}
     >
       {/* Point d’accroche — origin du swing */}
       <span
-        className="pass-badge-clip mx-auto mb-1 block h-2.5 w-2.5 rounded-full border-2 border-bic bg-palette-ink shadow-[0_0_0_2px_rgba(30,111,255,0.35)]"
+        className="pass-badge-clip mb-1 block h-2 w-2 shrink-0 rounded-full border-2 border-bic bg-palette-ink shadow-[0_0_0_2px_rgba(30,111,255,0.28)] sm:h-2.5 sm:w-2.5"
         aria-hidden
       />
       <span
-        className="mx-auto mb-1.5 block h-3 w-px bg-gradient-to-b from-bic to-bic/20"
+        className="mb-1.5 block h-2.5 w-px shrink-0 bg-gradient-to-b from-bic to-bic/25 sm:h-3"
         aria-hidden
       />
 
-      <div
-        className={`relative border border-bic/80 bg-palette-bone text-palette-ink shadow-[4px_6px_0_rgba(30,111,255,0.35)] ${
-          compact ? "min-w-[6.5rem] px-2.5 py-2" : "min-w-[8.5rem] px-3 py-2.5 md:min-w-[9.5rem]"
-        }`}
-      >
+      <div className="pass-badge-card relative flex min-h-[5.75rem] w-full flex-1 flex-col overflow-hidden rounded-[2px] border border-bic bg-palette-bone text-palette-ink sm:min-h-[6.25rem]">
+        {/* Bandeau + reflet laminé */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-bic"
+          className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-1 bg-bic sm:h-1.5"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-white/45 via-transparent to-palette-ink/[0.04]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -left-1/4 top-0 z-[1] h-full w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-70"
           aria-hidden
         />
 
-        <div className="mt-1.5 flex items-center gap-1.5">
-          {lines.length === 1 ? (
-            <span className="inline-flex shrink-0 text-bic" aria-hidden>
-              <PlatformIcon platform={lines[0].platform} className={iconSize} />
-            </span>
-          ) : (
-            <span className="inline-flex shrink-0 items-center gap-1 text-bic" aria-hidden>
-              {lines.map((line) => (
+        <div className="relative z-[2] flex flex-1 flex-col px-2.5 pb-2 pt-3 sm:px-3 sm:pb-2.5 sm:pt-3.5">
+          <div className="flex min-h-[1.1rem] items-center gap-1">
+            {multi ? (
+              <span
+                className="inline-flex shrink-0 items-center gap-0.5 text-bic sm:gap-1"
+                aria-hidden
+              >
+                {lines.map((line) => (
+                  <PlatformIcon
+                    key={line.platform}
+                    platform={line.platform}
+                    className="h-3.5 w-3.5 sm:h-4 sm:w-4"
+                  />
+                ))}
+              </span>
+            ) : (
+              <span className="inline-flex shrink-0 text-bic" aria-hidden>
                 <PlatformIcon
-                  key={line.platform}
-                  platform={line.platform}
-                  className={iconSize}
+                  platform={lines[0].platform}
+                  className="h-3.5 w-3.5 sm:h-4 sm:w-4"
                 />
-              ))}
-            </span>
-          )}
-          <p
-            className={`font-semibold uppercase tracking-[0.16em] text-bic ${
-              compact ? "text-[8px]" : "text-[9px]"
-            }`}
-          >
-            {eyebrow}
-          </p>
-        </div>
+              </span>
+            )}
+            <p className="truncate font-semibold uppercase tracking-[0.14em] text-bic text-[7px] sm:text-[8px] sm:tracking-[0.16em]">
+              {eyebrow}
+            </p>
+          </div>
 
-        <div className={lines.length > 1 ? "mt-1.5 space-y-1.5" : "mt-1"}>
-          {lines.map((line) => (
-            <div key={`${line.value}-${line.label}`} className="flex items-start gap-1.5">
-              {lines.length > 1 && (
-                <span className="mt-0.5 inline-flex shrink-0 text-bic" aria-hidden>
-                  <PlatformIcon platform={line.platform} className="h-3.5 w-3.5" />
-                </span>
-              )}
-              <div>
-                <p
-                  className={`font-display leading-none tracking-tight text-palette-ink ${
-                    compact ? "text-lg" : "text-2xl md:text-3xl"
-                  }`}
-                >
-                  {line.value}
-                </p>
-                <p
-                  className={`mt-0.5 uppercase tracking-[0.14em] text-palette-ink/55 ${
-                    compact ? "text-[8px]" : "text-[10px]"
-                  }`}
-                >
-                  {line.label}
-                </p>
-              </div>
+          {multi ? (
+            <div className="mt-1.5 grid flex-1 grid-cols-2 gap-1.5 sm:mt-2 sm:gap-2">
+              {lines.map((line) => (
+                <div key={`${line.value}-${line.label}`} className="min-w-0">
+                  <div className="mb-0.5 flex items-center gap-0.5 text-bic" aria-hidden>
+                    <PlatformIcon
+                      platform={line.platform}
+                      className="h-3 w-3"
+                    />
+                  </div>
+                  <p className="font-display text-base leading-none tracking-tight text-palette-ink sm:text-lg">
+                    {line.value}
+                  </p>
+                  <p className="mt-0.5 truncate text-[7px] uppercase tracking-[0.12em] text-palette-ink/55 sm:text-[8px]">
+                    {line.label}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          ) : (
+            <div className="mt-1 flex flex-1 flex-col justify-center sm:mt-1.5">
+              <p className="font-display text-xl leading-none tracking-tight text-palette-ink sm:text-2xl">
+                {lines[0].value}
+              </p>
+              <p className="mt-0.5 text-[8px] uppercase tracking-[0.14em] text-palette-ink/55 sm:text-[9px]">
+                {lines[0].label}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

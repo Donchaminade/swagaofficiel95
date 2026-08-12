@@ -26,7 +26,7 @@ export default function CollabsPage() {
         }}
         cta={{ href: "/contact", label: "Proposer une collab" }}
       />
-      <Collabs />
+      <Collabs mode="full" />
     </SiteShell>
   );
 }

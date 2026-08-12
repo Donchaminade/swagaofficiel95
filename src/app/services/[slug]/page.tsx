@@ -171,10 +171,6 @@ export default async function ServiceDetailPage({ params }: Props) {
 
           <Reveal variant="card-zoom" delay={STAGGER.col[1]}>
             <ServiceFrames frames={service.frames} alt={service.title} />
-            <p className="mt-4 text-sm leading-relaxed text-concrete">
-              Visuels SwAgA générés à partir de sa photo réelle — diaporama
-              animé (Ken Burns) sur 3 frames.
-            </p>
           </Reveal>
         </div>
       </section>

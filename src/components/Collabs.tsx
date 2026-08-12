@@ -1,10 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal, STAGGER } from "@/components/Reveal";
 import { site } from "@/lib/site";
 
 const PLACEHOLDER = "/images/illustrations/collabs-scene.png";
+
+type CollabsProps = {
+  /** Accueil : 3 artistes + lien. /collabs : liste complète + texte développé. */
+  mode?: "teaser" | "full";
+};
 
 function artistInitials(name: string) {
   return name
@@ -46,15 +52,17 @@ function ArtistPortrait({
       src={src}
       alt={name}
       fill
-      className="object-contain object-center"
+      className="object-cover transition duration-500 group-hover:scale-[1.06]"
       sizes="(max-width: 640px) 40vw, (max-width: 1024px) 20vw, 180px"
     />
   );
 }
 
-export function Collabs() {
+export function Collabs({ mode = "teaser" }: CollabsProps) {
   // Locals so React Compiler invalidates when `site` HMR-updates (avoids stale empty src).
-  const collabs = site.collabs;
+  const collabs = mode === "teaser" ? site.collabsTeaser : site.collabs;
+  const copy =
+    mode === "teaser" ? site.collabsCopy.teaser : site.collabsCopy.full;
   const sectionImage = safeSrc(site.sectionArt.collabs) ?? PLACEHOLDER;
 
   return (
@@ -81,8 +89,8 @@ export function Collabs() {
             <h2 className="mt-3 font-display text-4xl tracking-tight text-bone md:text-6xl">
               Sur scène avec
             </h2>
-            <p className="mt-4 max-w-md text-sm text-concrete md:text-base">
-              Six artistes, une même énergie street — Lomé et au-delà.
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-concrete md:text-base">
+              {copy}
             </p>
           </Reveal>
 
@@ -138,6 +146,17 @@ export function Collabs() {
             </Reveal>
           ))}
         </ul>
+
+        {mode === "teaser" && (
+          <Reveal variant="text-fade" delay={0.4} className="mt-12 text-center">
+            <Link
+              href="/collabs"
+              className="text-sm uppercase tracking-[0.2em] text-bic transition hover:text-bone"
+            >
+              Voir tous →
+            </Link>
+          </Reveal>
+        )}
       </div>
     </section>
   );

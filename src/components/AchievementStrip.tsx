@@ -10,6 +10,33 @@ type AchievementStripProps = {
   className?: string;
 };
 
+/** Drapeau Cameroun : vert | rouge | jaune + étoile jaune (SVG inline). */
+function CameroonFlag({ className = "" }: { className?: string }) {
+  return (
+    <span
+      className={`cameroon-flag inline-flex shrink-0 ${className}`}
+      role="img"
+      aria-label="drapeau Cameroun"
+    >
+      <svg
+        viewBox="0 0 45 30"
+        width="36"
+        height="24"
+        className="h-[20px] w-auto sm:h-[24px]"
+        aria-hidden
+      >
+        <rect width="15" height="30" fill="#007A5E" />
+        <rect x="15" width="15" height="30" fill="#CE1126" />
+        <rect x="30" width="15" height="30" fill="#FCD116" />
+        <polygon
+          fill="#FCD116"
+          points="22.5,9 23.6,12.4 27.2,12.4 24.3,14.5 25.4,17.9 22.5,15.8 19.6,17.9 20.7,14.5 17.8,12.4 21.4,12.4"
+        />
+      </svg>
+    </span>
+  );
+}
+
 export function AchievementStrip({
   variant = "section",
   className = "",
@@ -36,9 +63,12 @@ export function AchievementStrip({
           </span>
         </span>
         <span className="h-4 w-px bg-palette-bone/25" aria-hidden />
-        <span className="text-[10px] uppercase tracking-[0.2em] text-palette-bone sm:text-xs">
-          {a.event}
-          <span className="text-palette-concrete"> · {a.location}</span>
+        <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-palette-bone sm:text-xs">
+          <span>
+            {a.event}
+            <span className="text-palette-concrete"> · {a.location}</span>
+          </span>
+          <CameroonFlag />
         </span>
       </div>
     );

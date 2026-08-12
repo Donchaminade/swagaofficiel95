@@ -44,7 +44,8 @@ export function PageHero({
             alt={image.alt}
             fill
             priority
-            className="object-contain object-center brightness-[0.55] contrast-110 saturate-[0.9]"
+            className="object-cover brightness-[0.55] contrast-110 saturate-[0.9]"
+            style={{ objectPosition: image.objectPosition ?? "center 30%" }}
             sizes="100vw"
           />
         ) : null}

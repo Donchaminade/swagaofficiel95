@@ -1,11 +1,11 @@
 import { About } from "@/components/About";
+import { BookingCta } from "@/components/BookingCta";
 import { Collabs } from "@/components/Collabs";
-import { Contact } from "@/components/Contact";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
+import { Press } from "@/components/Press";
 import { Services } from "@/components/Services";
 import { SiteShell } from "@/components/SiteShell";
-import { Social } from "@/components/Social";
 import { TikTokCarousel } from "@/components/TikTokCarousel";
 
 export default function Home() {
@@ -16,9 +16,9 @@ export default function Home() {
       <About mode="teaser" />
       <TikTokCarousel />
       <Services mode="teaser" />
-      <Collabs />
-      <Social />
-      <Contact />
+      <Collabs mode="teaser" />
+      <Press />
+      <BookingCta />
     </SiteShell>
   );
 }
