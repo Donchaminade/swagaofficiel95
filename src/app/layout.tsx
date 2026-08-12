@@ -45,10 +45,11 @@ export const metadata: Metadata = {
     siteName: "SwAgA-Officiel95",
     images: [
       {
-        url: "/og.png",
+        url: "https://swagaofficiel95.vercel.app/og.png?v=2",
         width: 1200,
         height: 630,
-        alt: "SwAgA-Officiel95",
+        type: "image/png",
+        alt: "SwAgA-Officiel95 — Danse Contenu Pubs — Lomé",
       },
     ],
     locale: "fr_TG",
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     title: "SwAgA-Officiel95 | Danse · Contenu · Pubs",
     description:
       "Danseur & créateur à Lomé — collabs, pubs marques, contenus street.",
-    images: ["/og.png"],
+    images: ["https://swagaofficiel95.vercel.app/og.png?v=2"],
   },
 };
 
