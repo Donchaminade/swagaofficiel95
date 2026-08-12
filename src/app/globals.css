@@ -1,0 +1,416 @@
+@import "tailwindcss";
+
+:root {
+  /* Palette absolue — ne change pas avec le thème */
+  --palette-ink: #0b0b0b;
+  --palette-asphalt: #141414;
+  --palette-bone: #f2efe8;
+  --palette-concrete: #9a958c;
+  --palette-bic: #1e6fff;
+
+  /* Rôles thème (sombre = défaut / actuel) */
+  --ink: var(--palette-ink);
+  --asphalt: var(--palette-asphalt);
+  --bone: var(--palette-bone);
+  --concrete: var(--palette-concrete);
+  --bic: var(--palette-bic);
+  --hairline: rgba(255, 255, 255, 0.1);
+  --background: var(--ink);
+  --foreground: var(--bone);
+  color-scheme: dark;
+}
+
+html.dark {
+  --ink: var(--palette-ink);
+  --asphalt: var(--palette-asphalt);
+  --bone: var(--palette-bone);
+  --concrete: var(--palette-concrete);
+  --bic: var(--palette-bic);
+  --hairline: rgba(255, 255, 255, 0.1);
+  --background: var(--ink);
+  --foreground: var(--bone);
+  color-scheme: dark;
+}
+
+html.light {
+  --ink: #f2efe8;
+  --asphalt: #e6e0d4;
+  --bone: #0b0b0b;
+  --concrete: #5c574f;
+  --bic: var(--palette-bic);
+  --hairline: rgba(11, 11, 11, 0.12);
+  --background: var(--ink);
+  --foreground: var(--bone);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-asphalt: var(--asphalt);
+  --color-bone: var(--bone);
+  --color-concrete: var(--concrete);
+  --color-bic: var(--bic);
+  --color-hairline: var(--hairline);
+  --color-palette-ink: var(--palette-ink);
+  --color-palette-asphalt: var(--palette-asphalt);
+  --color-palette-bone: var(--palette-bone);
+  --color-palette-concrete: var(--palette-concrete);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+/* Bandeau texte — défilement horizontal non-stop (droite → gauche) */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation-name: marquee;
+  animation-duration: 28s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    /* 2 copies égales → -50% = boucle seamless */
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Carousel TikTok — défilement continu droite → gauche (2 copies → -50%) */
+@keyframes tiktok-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.tiktok-marquee-track {
+  will-change: transform;
+}
+
+.tiktok-marquee-run {
+  animation-name: tiktok-marquee;
+  animation-duration: 72s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+/* Pause optionnelle au survol — le défilement reprend dès la sortie */
+.tiktok-marquee-wrap:hover .tiktok-marquee-run {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tiktok-marquee-wrap:hover .tiktok-marquee-run {
+    animation-play-state: running;
+  }
+}
+
+/* Masque les barres de scroll (marquee reduced-motion + conteneurs) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Clip chrome / scrollbar interne des iframes Player TikTok */
+.tiktok-embed-clip {
+  overflow: hidden;
+}
+.tiktok-embed-clip iframe {
+  /* Légèrement plus grand + centré pour cacher bords / scrollbar */
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  left: -8px;
+  top: -8px;
+}
+
+/* Micro-animations icônes nav (hover / active) */
+@keyframes nav-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-3px);
+  }
+  70% {
+    transform: translateY(1px);
+  }
+}
+
+@keyframes nav-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.85;
+  }
+}
+
+@keyframes nav-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(18deg);
+  }
+}
+
+@keyframes nav-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+.animate-nav-bounce {
+  animation: nav-bounce 0.55s ease;
+}
+
+.animate-nav-pulse {
+  animation: nav-pulse 0.7s ease;
+}
+
+.animate-nav-spin {
+  animation: nav-spin 0.45s ease;
+}
+
+.animate-nav-wiggle {
+  animation: nav-wiggle 0.5s ease;
+}
+
+/* Hero background ken-burns (diaporama) */
+@keyframes hero-kenburns {
+  from {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.16) translate3d(-1.5%, 1.5%, 0);
+  }
+}
+
+.hero-kenburns {
+  animation-name: hero-kenburns;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* Hero diaporama — opacity/z-index en CSS (évite mismatch SSR/client) */
+.hero-slide {
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 1400ms ease-in-out;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    transition: none;
+  }
+}
+
+/* PROCOPE-style keyframes (équivalents Animate.css, labels sémantiques) */
+@keyframes procope-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes procope-zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.92, 0.92, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes procope-slideInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 48px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes procope-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Badges « passes » accrochés — balancement pendulaire (visible ±11deg) */
+.pass-badge-hang {
+  display: inline-block;
+  transform-origin: top center;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+@keyframes pass-badge-swing {
+  0% {
+    transform: rotate(-11deg);
+  }
+  50% {
+    transform: rotate(11deg);
+  }
+  100% {
+    transform: rotate(-11deg);
+  }
+}
+
+/* Actif par défaut dès .pass-badge-swing (après mount) ;
+   désactivé seulement si prefers-reduced-motion */
+.pass-badge-swing {
+  animation: pass-badge-swing 2.4s ease-in-out infinite;
+  animation-delay: var(--pass-swing-delay, 0s);
+  animation-fill-mode: both;
+  transform-origin: top center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation-name: marquee;
+    animation-duration: 28s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Bandeau texte + carousel TikTok : ralentir, garder le mouvement */
+  .marquee-track {
+    animation-duration: 80s;
+    animation-play-state: running;
+  }
+
+  .tiktok-marquee-run {
+    animation-duration: 160s;
+    animation-play-state: running;
+  }
+
+  .tiktok-marquee-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .tiktok-marquee-scroll::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .pass-badge-swing {
+    animation: none !important;
+    will-change: auto;
+  }
+
+  .hero-kenburns {
+    animation: none !important;
+    will-change: auto;
+  }
+
+  .animate-nav-bounce,
+  .animate-nav-pulse,
+  .animate-nav-spin,
+  .animate-nav-wiggle {
+    animation: none !important;
+  }
+
+  /* Ne pas écraser .marquee-track / .tiktok-marquee-run (pause ci-dessus) */
+  *:not(.marquee-track):not(.tiktok-marquee-run),
+  *:not(.marquee-track):not(.tiktok-marquee-run)::before,
+  *:not(.marquee-track):not(.tiktok-marquee-run)::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Flash léger de section après clic nav */
+@keyframes section-nav-flash {
+  0% {
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+  35% {
+    box-shadow: inset 0 0 100px 0 rgba(30, 111, 255, 0.2);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-nav-flash {
+    animation: section-nav-flash 0.9s ease-out;
+  }
+}
+
+::selection {
+  background: var(--bic);
+  color: var(--palette-bone);
+}
